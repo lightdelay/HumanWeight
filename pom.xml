@@ -14,6 +14,17 @@
             <version>4.10</version>
         </dependency>
     </dependencies>
-
-
+    <build>
+        <plugins>
+            ?
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>sdasd
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    asdasd
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

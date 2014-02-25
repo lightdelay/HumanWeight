@@ -1,6 +1,8 @@
 import junit.framework.Assert;
 import org.junit.Test;
 
+import java.util.Random;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sergeyrybalkin
@@ -35,6 +37,22 @@ public class LogicTest {
         Assert.assertEquals(404, logic.getHumanEdgeWeight(levelNumber + 1, levelNumber + 2).getStatus());
 
         Assert.assertEquals(11, logic.getHumanEdgeWeightImplementation(5, 2));
+        Assert.assertTrue(false);
+    }
+
+    @Test
+    public void stressTest() throws Exception {
+        int levelNumber = 1000;
+        Logic logic = new Logic(levelNumber);
+        int requestsNumber = 10000;
+        Random random = new Random();
+        long startTime = System.currentTimeMillis();
+        for (int requestIndex = 0; requestIndex < requestsNumber; requestIndex++) {
+            int level = -50 + random.nextInt(levelNumber + 100);
+            int index = -50 + random.nextInt(levelNumber + 100);
+            logic.getHumanEdgeWeight(level, index);
+        }
+        Assert.assertTrue(System.currentTimeMillis() - startTime < 1000);
     }
 
 

@@ -9,6 +9,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class Logic {
+    // List of List to new Object
     private List<List<Block>> weightHolder;
 
     public Logic(int levelsNumber) {
@@ -28,6 +29,7 @@ public class Logic {
         if (weightHolder.get(level).get(index).getCarringWeight() != Block.NOT_INITIALIZED_WEIGHT) {
             return weightHolder.get(level).get(index).getCarringWeight();
         } else {
+            // todo isInRange(a,b)
             int middleBrunchWeight = (level - 2 >= 0 && index - 1 >= 0 && index - 1 < weightHolder.get(level - 2).size()) ?
                     getHumanEdgeWeightImplementation(level - 2, index - 1) + 1 :
                     0;
