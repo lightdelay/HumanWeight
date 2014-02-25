@@ -1,4 +1,5 @@
 import junit.framework.Assert;
+import logic.Logic;
 import org.junit.Test;
 
 import java.util.Random;
