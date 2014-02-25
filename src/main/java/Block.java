@@ -21,4 +21,9 @@ public class Block {
     public int getWeight() {
         return this.WEIGHT;
     }
+
+    @Override
+    public String toString() {
+        return carringWeight == NOT_INITIALIZED_WEIGHT ? "weight " + carringWeight : "Not initialized";
+    }
 }
