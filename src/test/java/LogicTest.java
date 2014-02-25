@@ -14,5 +14,7 @@ public class LogicTest {
         Logic logic = new Logic(levelNumber);
 
         Assert.assertEquals(5, logic.getHumanEdgeWeight(3, 1));
+        Assert.assertEquals(0, logic.getHumanEdgeWeight(0, 0));
+        Assert.assertEquals(11, logic.getHumanEdgeWeight(5, 2));
     }
 }

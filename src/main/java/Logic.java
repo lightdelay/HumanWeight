@@ -37,6 +37,7 @@ public class Logic {
             int rightBrunchWeight = (level - 1 >= 0 && index < level) ?
                     getHumanEdgeWeight(level - 1, index) + 1 :
                     0;
+            weightHolder.get(level).get(index).setCarringWeight(leftBrunchWeight + rightBrunchWeight - middleBrunchWeight);
             return leftBrunchWeight + rightBrunchWeight - middleBrunchWeight;
         }
     }
