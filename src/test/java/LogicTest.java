@@ -37,7 +37,6 @@ public class LogicTest {
         Assert.assertEquals(404, logic.getHumanEdgeWeight(levelNumber + 1, levelNumber + 2).getStatus());
 
         Assert.assertEquals(11, logic.getHumanEdgeWeightImplementation(5, 2));
-        Assert.assertTrue(false);
     }
 
     @Test
