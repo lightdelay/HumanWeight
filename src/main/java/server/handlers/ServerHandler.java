@@ -1,4 +1,4 @@
-package server;
+package server.handlers;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -23,15 +23,15 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
  * Time: 1:44
  * To change this template use File | Settings | File Templates.
  */
-class ServerHandler extends SimpleChannelInboundHandler<Object> {
+public class ServerHandler extends SimpleChannelInboundHandler<Object> {
     private HttpRequest request;
     private final StringBuilder buf = new StringBuilder();
-    private Map<String, UriHandlerBased> handlers = new HashMap<String, UriHandlerBased>();
+    private Map<String, UriHandlerBased> handlers = new HashMap<>();
 
     public ServerHandler() {
         if (handlers.size() == 0) {
             try {
-                for (Class c : ReflectionTools.getClasses(getClass().getPackage().getName() + ".handlers")) {
+                for (Class c : ReflectionTools.getClasses(getClass().getPackage().getName())) {
                     Annotation annotation = c.getAnnotation(Mapped.class);
                     if (annotation != null) {
                         handlers.put(((Mapped) annotation).uri(), (UriHandlerBased) c.newInstance());

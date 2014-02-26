@@ -1,4 +1,4 @@
-package server;
+package server.handlers;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,8 +10,8 @@ package server;
 
 import io.netty.handler.codec.http.HttpRequest;
 
-@Mapped(uri = "/h1")
-public class UriHandler1 extends UriHandlerBased {
+@Mapped(uri = "/hello")
+public class HelloHandler extends UriHandlerBased {
 
     @Override
     public void process(HttpRequest request, StringBuilder buff) {
