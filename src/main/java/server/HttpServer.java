@@ -10,6 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
+import logic.Logic;
 import server.handlers.ServerHandler;
 
 /**
@@ -20,10 +21,13 @@ import server.handlers.ServerHandler;
  * To change this template use File | Settings | File Templates.
  */
 public class HttpServer {
+    private static final int LEVEL_NUMBER = 1000;
     private final int port;
+    private Logic logic;
 
     public HttpServer(int port) {
         this.port = port;
+        logic = new Logic(LEVEL_NUMBER);
     }
 
     public void start() throws Exception {
@@ -48,7 +52,7 @@ public class HttpServer {
             ChannelPipeline p = ch.pipeline();
             p.addLast("decoder", new HttpRequestDecoder());
             p.addLast("encoder", new HttpResponseEncoder());
-            p.addLast("handler", new ServerHandler());
+            p.addLast("handler", new ServerHandler(logic));
         }
     }
 }

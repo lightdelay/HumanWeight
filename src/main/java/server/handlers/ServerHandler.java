@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
+import logic.Logic;
 
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
@@ -27,8 +28,10 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
     private HttpRequest request;
     private final StringBuilder buf = new StringBuilder();
     private Map<String, UriHandlerBased> handlers = new HashMap<>();
+    private Logic logic;
 
-    public ServerHandler() {
+    public ServerHandler(Logic logic) {
+        this.logic = logic;
         if (handlers.size() == 0) {
             try {
                 for (Class c : ReflectionTools.getClasses(getClass().getPackage().getName())) {
@@ -58,7 +61,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
             String context = queryStringDecoder.path();
             handler = handlers.get(context);
             if (handler != null) {
-                handler.process(request, buf);
+                handler.process(request, logic, buf);
             }
         }
         if (msg instanceof LastHttpContent) {

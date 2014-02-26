@@ -9,10 +9,11 @@ package server.handlers;
  */
 
 import io.netty.handler.codec.http.HttpRequest;
+import logic.Logic;
 
 public abstract class UriHandlerBased {
 
-    public abstract void process(HttpRequest request, StringBuilder buff);
+    public abstract void process(HttpRequest request, Logic logic, StringBuilder buff);
 
     public String getContentType() {
         return "text/plain; charset=UTF-8";

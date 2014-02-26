@@ -20,14 +20,13 @@ public class ReflectionTools {
 
     public static Class[] getClasses(String packageName)
             throws ClassNotFoundException, IOException {
+
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         Enumeration<URL> resources = classLoader.getResources(packageName.replace('.', '/'));
-        ArrayList<Class> classes = new ArrayList<Class>();
+        ArrayList<Class> classes = new ArrayList<>();
         while (resources.hasMoreElements()) {
             File directory = new File(resources.nextElement().getFile());
             if (directory.exists()) {
-                // Unpacked jar
-                System.out.println("dir " + directory.getPath() + " exists!");
                 File[] files = directory.listFiles();
                 if (files != null) {
                     for (File f : files) {
@@ -37,7 +36,6 @@ public class ReflectionTools {
                     }
                 }
             } else {
-                // Packed jar
                 String[] parts = directory.getPath().substring("file:".length()).split("!");
                 if (parts.length == 2) {
                     Enumeration e = new JarFile(parts[0]).entries();

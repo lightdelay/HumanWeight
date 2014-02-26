@@ -3,6 +3,8 @@ package logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import static server.Util.isInRange;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sergeyrybalkin
@@ -32,10 +34,10 @@ public class Logic {
             return weightHolder.get(level).get(index).getCarringWeight();
         } else {
             // todo isInRange(a,b)
-            int middleBrunchWeight = (level - 2 >= 0 && index - 1 >= 0 && index - 1 < weightHolder.get(level - 2).size()) ?
+            int middleBrunchWeight = (level - 2 >= 0 && isInRange(index - 1, 0, weightHolder.get(level - 2).size() - 1)) ?
                     getHumanEdgeWeightImplementation(level - 2, index - 1) + 1 :
                     0;
-            int leftBrunchWeight = (level - 1 >= 0 && index - 1 >= 0 && index - 1 < weightHolder.get(level - 1).size()) ?
+            int leftBrunchWeight = (level - 1 >= 0 && index - 1 >= 0 && isInRange(index - 1, 0, weightHolder.get(level - 1).size() - 1)) ?
                     getHumanEdgeWeightImplementation(level - 1, index - 1) + 1 :
                     0;
             int rightBrunchWeight = (level - 1 >= 0 && index < weightHolder.get(level - 1).size()) ?
@@ -47,7 +49,7 @@ public class Logic {
     }
 
     public Response getHumanEdgeWeight(int level, int index) {
-        if (level >= 0 && level < weightHolder.size() && index >= 0 && index < level + 1) {
+        if (isInRange(level, 0, weightHolder.size() - 1) && isInRange(index, 0, level)) {
             return new Response(0, getHumanEdgeWeightImplementation(level, index));
         } else {
             return new Response(404, -1);
