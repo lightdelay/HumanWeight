@@ -11,6 +11,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import logic.Logic;
+import logic.WeightService;
 import server.handlers.ServerHandler;
 
 /**
@@ -23,22 +24,22 @@ import server.handlers.ServerHandler;
 public class HttpServer {
     private static final int LEVEL_NUMBER = 1000;
     private final int port;
-    private Logic logic;
+    private WeightService weightService;
 
     public HttpServer(int port) {
         this.port = port;
-        logic = new Logic(LEVEL_NUMBER);
+        weightService = new Logic(LEVEL_NUMBER);
     }
 
     public void start() throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
-            ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup, workerGroup)
+            ServerBootstrap bootstrap = new ServerBootstrap();
+            bootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new ServerInitializer());
-            Channel ch = b.bind(port).sync().channel();
+            Channel ch = bootstrap.bind(port).sync().channel();
             ch.closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();
@@ -52,7 +53,7 @@ public class HttpServer {
             ChannelPipeline p = ch.pipeline();
             p.addLast("decoder", new HttpRequestDecoder());
             p.addLast("encoder", new HttpResponseEncoder());
-            p.addLast("handler", new ServerHandler(logic));
+            p.addLast("handler", new ServerHandler(weightService));
         }
     }
 }
