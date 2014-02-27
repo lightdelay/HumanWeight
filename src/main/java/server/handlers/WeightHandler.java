@@ -9,8 +9,8 @@ package server.handlers;
  */
 
 import io.netty.handler.codec.http.HttpRequest;
-import logic.Logic;
 import logic.Response;
+import logic.WeightService;
 
 import java.util.Map;
 
@@ -20,7 +20,7 @@ import static server.Util.getQueryMap;
 public class WeightHandler extends UriHandlerBased {
 
     @Override
-    public void process(HttpRequest request, Logic logic, StringBuilder buff) {
+    public void process(HttpRequest request, WeightService weightService, StringBuilder buff) {
         String result = "OK";
 
         try {
@@ -29,11 +29,11 @@ public class WeightHandler extends UriHandlerBased {
             Map<String, String> args = getQueryMap(argsString);
             int firstArg = Integer.parseInt(args.get("level"));
             int secondArg = Integer.parseInt(args.get("index"));
-            Response response = logic.getHumanEdgeWeight(firstArg, secondArg);
+            Response response = weightService.getHumanEdgeWeight(firstArg, secondArg);
             if (response.getStatus() == 0) {
                 result = String.valueOf(response.getValue());
             } else {
-                result = "Bad request: response from logic module.";
+                result = "Bad request: response from weightService.";
             }
         } catch (NumberFormatException e) {
             result = "Bad arguments.";

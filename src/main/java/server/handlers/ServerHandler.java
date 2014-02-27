@@ -6,6 +6,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 import logic.Logic;
+import logic.WeightService;
 
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
@@ -28,10 +29,10 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
     private HttpRequest request;
     private final StringBuilder buf = new StringBuilder();
     private Map<String, UriHandlerBased> handlers = new HashMap<>();
-    private Logic logic;
+    private WeightService weightService;
 
     public ServerHandler(Logic logic) {
-        this.logic = logic;
+        this.weightService = logic;
         if (handlers.size() == 0) {
             try {
                 for (Class c : ReflectionTools.getClasses(getClass().getPackage().getName())) {
@@ -61,7 +62,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
             String context = queryStringDecoder.path();
             handler = handlers.get(context);
             if (handler != null) {
-                handler.process(request, logic, buf);
+                handler.process(request, weightService, buf);
             }
         }
         if (msg instanceof LastHttpContent) {

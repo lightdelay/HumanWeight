@@ -9,13 +9,13 @@ package server.handlers;
  */
 
 import io.netty.handler.codec.http.HttpRequest;
-import logic.Logic;
+import logic.WeightService;
 
 @Mapped(uri = "/hello")
 public class HelloHandler extends UriHandlerBased {
 
     @Override
-    public void process(HttpRequest request, Logic logic, StringBuilder buff) {
+    public void process(HttpRequest request, WeightService weightService, StringBuilder buff) {
         buff.append("HELLO HANDLER!");
     }
 }

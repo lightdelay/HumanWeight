@@ -12,14 +12,14 @@ import static server.Util.isInRange;
  * Time: 20:20
  * To change this template use File | Settings | File Templates.
  */
-public class Logic {
-    // List of List to new Object
+public class Logic implements WeightService {
+    // todo List of List to new Object
     private List<List<Block>> weightHolder;
 
     public Logic(int levelsNumber) {
-        weightHolder = new ArrayList<List<Block>>(levelsNumber);
+        weightHolder = new ArrayList<>(levelsNumber);
         for (int level = 0; level < levelsNumber; level++) {
-            List<Block> blocks = new ArrayList<Block>(level + 1);
+            List<Block> blocks = new ArrayList<>(level + 1);
             for (int index = 0; index < level + 1; index++) {
                 blocks.add(index, new Block());
             }
@@ -33,7 +33,6 @@ public class Logic {
         if (weightHolder.get(level).get(index).getCarringWeight() != Block.NOT_INITIALIZED_WEIGHT) {
             return weightHolder.get(level).get(index).getCarringWeight();
         } else {
-            // todo isInRange(a,b)
             int middleBrunchWeight = (level - 2 >= 0 && isInRange(index - 1, 0, weightHolder.get(level - 2).size() - 1)) ?
                     getHumanEdgeWeightImplementation(level - 2, index - 1) + 1 :
                     0;
@@ -48,6 +47,7 @@ public class Logic {
         }
     }
 
+    @Override
     public Response getHumanEdgeWeight(int level, int index) {
         if (isInRange(level, 0, weightHolder.size() - 1) && isInRange(index, 0, level)) {
             return new Response(0, getHumanEdgeWeightImplementation(level, index));

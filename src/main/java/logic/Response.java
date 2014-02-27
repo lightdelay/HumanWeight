@@ -8,7 +8,6 @@ package logic;
  * To change this template use File | Settings | File Templates.
  */
 public class Response {
-    // TODO status to Enum
     private int status;
     private int value;
 
