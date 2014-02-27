@@ -18,10 +18,10 @@ public class LogicTest {
         Logic logic = new Logic(levelNumber);
 
         Assert.assertEquals(0, logic.getHumanEdgeWeightImplementation(0, 0));
-        Assert.assertEquals(1, logic.getHumanEdgeWeightImplementation(1, 0));
-        Assert.assertEquals(5, logic.getHumanEdgeWeightImplementation(3, 1));
-        Assert.assertEquals(11, logic.getHumanEdgeWeightImplementation(5, 2));
-        Assert.assertEquals(5, logic.getHumanEdgeWeightImplementation(5, 0));
+        Assert.assertEquals(50 * 1, logic.getHumanEdgeWeightImplementation(1, 0));
+        Assert.assertEquals(50 * 5, logic.getHumanEdgeWeightImplementation(3, 1));
+        Assert.assertEquals(50 * 11, logic.getHumanEdgeWeightImplementation(5, 2));
+        Assert.assertEquals(50 * 5, logic.getHumanEdgeWeightImplementation(5, 0));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class LogicTest {
         Assert.assertEquals(404, logic.getHumanEdgeWeight(levelNumber + 1, 3).getStatus());
         Assert.assertEquals(404, logic.getHumanEdgeWeight(levelNumber + 1, levelNumber + 2).getStatus());
 
-        Assert.assertEquals(11, logic.getHumanEdgeWeightImplementation(5, 2));
+        Assert.assertEquals(50 * 11, logic.getHumanEdgeWeightImplementation(5, 2));
     }
 
     @Test

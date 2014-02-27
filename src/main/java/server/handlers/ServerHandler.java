@@ -60,6 +60,9 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
             QueryStringDecoder queryStringDecoder = new QueryStringDecoder(request.getUri());
             buf.setLength(0);
             String context = queryStringDecoder.path();
+            if (context.indexOf("/", 1) > 0) {
+                context = context.substring(0, context.indexOf("/", 1));
+            }
             handler = handlers.get(context);
             if (handler != null) {
                 handler.process(request, weightService, buf);
