@@ -10,7 +10,6 @@ package server;
 public class ServerMainClass {
     public static void main(String... args) {
         HttpServer server = new HttpServer(8080);
-        System.out.println("Xui");
         try {
             server.start();
         } catch (Exception e) {
